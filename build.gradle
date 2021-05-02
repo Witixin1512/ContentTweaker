@@ -2,8 +2,7 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net/"
         }
         maven {
           url "https://plugins.gradle.org/m2/"
@@ -38,7 +37,11 @@ minecraft {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
+repositories.each {
+    if (it instanceof MavenArtifactRepository && it.url.toString() == "https://files.minecraftforge.net/maven") {
+        it.url = "https://maven.minecraftforge.net/"
+    }
+}
 repositories {
     mavenCentral()
     maven {
